@@ -141,6 +141,6 @@ class TrajetU {
             die('Erreur: ' . $e->getMessage());
         }
     }
-    
+
 }
 ?>

@@ -7,9 +7,9 @@ class Trajet {
     private $date_heure_depart;
     private $nombre_places_disponibles;
     private $prix;
-    private $reserve;
 
-    public function __construct($id, $conducteur_id, $point_depart, $point_arrivee, $date_heure_depart, $nombre_places_disponibles, $prix, $reserve) {
+
+    public function __construct($id, $conducteur_id, $point_depart, $point_arrivee, $date_heure_depart, $nombre_places_disponibles, $prix) {
         $this->id = $id;
         $this->conducteur_id = $conducteur_id;
         $this->point_depart = $point_depart;
@@ -17,10 +17,10 @@ class Trajet {
         $this->date_heure_depart = $date_heure_depart;
         $this->nombre_places_disponibles = $nombre_places_disponibles;
         $this->prix = $prix;
-        $this->reserve=$reserve;
+   
     }
     public function getReserve() {
-        return $this->reserve;
+
     }
     
     // Getters
