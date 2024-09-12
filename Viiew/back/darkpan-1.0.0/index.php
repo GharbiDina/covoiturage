@@ -3,8 +3,6 @@ include 'C:/xampp/htdocs/projetcovoiturage/controller/UserU.php';
 
 $UserU = new UserU();
 $users = $UserU->afficherUtilisateurs();
-//$users = afficherUtilisateurs();
-
 ?>
 
 <!DOCTYPE html>

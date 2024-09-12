@@ -6,6 +6,8 @@
         private $role = null;
         private $prenom=null;
         private $num_tel=null;
+        private $password=null;
+    
         function __construct($id, $Nom,$prenom,$password, $email,$num_tel, $role) {
             $this->id = $id;
             $this->Nom = $Nom;
@@ -13,6 +15,7 @@
             $this->email = $email;
             $this->num_tel = $num_tel;
             $this->role = $role;
+            $this->password= $password;
             
         }
     
@@ -25,6 +28,16 @@
         public function setId($id) {
             $this->id = $id;
         }
+        public function getPassword() {
+            return $this->password;
+        }
+    
+        // Setter for Id
+        public function setPassword($password) {
+            $this->password = $password;
+        }
+        
+
     
         // Getter for Nom
         public function getNom() {

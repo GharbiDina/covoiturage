@@ -1,47 +1,37 @@
 <?php
-include 'C:/xampp/htdocs/projetcovoiturage/config.php';
-include 'C:/xampp/htdocs/projetcovoiturage/model/User.php';
+include 'C:/xampp/htdocs/projetcovoiturage/controller/UserU.php';
 
-$db = config::getConnexion();
+$UserU = new UserU();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $email = $_POST['email'];
-    $num_tel = $_POST['num_tel'];
-    $role = $_POST['role'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_GET['id'])) {
+        $id = intval($_GET['id']);
+        
+        // Retrieve form data
+        $nom = $_POST['nom'];
+        $prenom = $_POST['prenom'];
+        $email = $_POST['email'];
+        $num_tel = $_POST['num_tel'];
+        $role = $_POST['role'];
 
-  
-    if (!empty($nom) && !empty($email) && !empty($role)) {
-        try {
-     
-            $sql = "INSERT INTO user (nom, prenom, email, num_tel, role) VALUES (:nom, :prenom, :email, :num_tel, :role)";
-            $stmt = $db->prepare($sql);
-
-            // Lier les paramètres
-            $stmt->bindParam(':nom', $nom);
-            $stmt->bindParam(':prenom', $prenom);
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':num_tel', $num_tel);
-            $stmt->bindParam(':role', $role);
-
-            // Exécuter la requête
-            $stmt->execute();
-
-            // Redirection ou message de succès
-            header("Location: index.php"); // Redirige vers une page de succès
-            exit();
-        } catch (Exception $e) {
-            // Gérer les erreurs
-            echo 'Erreur: ' . $e->getMessage();
-        }
-    } else {
-        echo "Veuillez remplir tous les champs.";
+        // Create a User object
+        $user = new User($id, $nom, $prenom, $password, $email, $num_tel, $role, ''); // Assuming the constructor matches
+        
+        // Call the update method
+        $UserU->modifierUtilisateurs($user);
+        
+        // Redirect or display a success message
+        header('Location: index.php');
+        exit();
     }
-} else {
-    // Si le formulaire n'a pas été soumis, rediriger ou afficher un message
-    echo "Formulaire non soumis.";
+}
+
+if (isset($_GET['id'])) {
+    $id = intval($_GET['id']);
+    $user = $UserU->recupererUtilisateurs($id);
+    
+    // Convert the user data to a format suitable for use in the form
+    $user = $user ? (object) $user : null;
 }
 ?>
 
@@ -234,88 +224,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                        <!-- Add User Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="bg-secondary text-center rounded p-4">
-        <h6 class="mb-0">Ajouter Utilisateur</h6>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                <div class="mb-3">
-                    <label for="nom" class="form-label">Nom</label>
-                    <input type="text" class="form-control" id="nom" name="nom" required>
-                </div>
-                <div class="mb-3">
-                    <label for="prenom" class="form-label">Prenom</label>
-                    <input type="text" class="form-control" id="prenom" name="prenom" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="num_tel" class="form-label">Num_tel</label>
-                    <input type="tel" class="form-control" id="num_tel" name="num_tel" required>
-                </div>
-                <div class="mb-3">
-                    <label for="role" class="form-label">Role</label>
-                    <select class="form-select" id="role" name="role" required>
-                        <option value="" disabled selected>Choisir un rôle</option>
-                        <option value="admin">Admin</option>
-                        <option value="passager">Passager</option>
-                        <option value="conducteur">Conducteur</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Ajouter</button>
-            </form>
-    </div>
-</div>
-<!-- Add User End -->
- 
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">Horizontal Form</h6>
-                            <form>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="inputEmail3">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-                                    <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="inputPassword3">
-                                    </div>
-                                </div>
-                                <fieldset class="row mb-3">
-                                    <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
-                                    <div class="col-sm-10">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
-                                                id="gridRadios1" value="option1" checked>
-                                            <label class="form-check-label" for="gridRadios1">
-                                                First radio
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gridRadios"
-                                                id="gridRadios2" value="option2">
-                                            <label class="form-check-label" for="gridRadios2">
-                                                Second radio
-                                            </label>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <div class="row mb-3">
-                                    <legend class="col-form-label col-sm-2 pt-0">Checkbox</legend>
-                                    <div class="col-sm-10">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="gridCheck1">
-                                            <label class="form-check-label" for="gridCheck1">
-                                                Check me out
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Sign in</button>
-                            </form>
+        <h6 class="mb-0">Modifier Utilisateur</h6>
+        <form action="modifier.php?id=<?php echo urlencode($id); ?>" method="POST">
+        <div class="mb-3">
+            <label for="nom" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="nom" name="nom" value="<?php echo htmlspecialchars($user->nom); ?>" required>
+        </div>
+        <div class="mb-3">
+            <label for="prenom" class="form-label">Prénom</label>
+            <input type="text" class="form-control" id="prenom" name="prenom" value="<?php echo htmlspecialchars($user->prenom); ?>" required>
+        </div>
+        <div class="mb-3">
+            <label for="num_tel" class="form-label">Numéro de téléphone</label>
+            <input type="tel" class="form-control" id="num_tel" name="num_tel" value="<?php echo htmlspecialchars($user->num_tel); ?>" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($user->email); ?>" required>
+        </div>
+   
+        <div class="mb-3">
+            <label for="role" class="form-label">Role</label>
+            <select class="form-select" id="role" name="role" required>
+                <option value="" disabled>Choisir un rôle</option>
+                <option value="admin" <?php echo $user->role == 'admin' ? 'selected' : ''; ?>>Admin</option>
+                <option value="passager" <?php echo $user->role == 'passager' ? 'selected' : ''; ?>>Passager</option>
+                <option value="conducteur" <?php echo $user->role == 'conducteur' ? 'selected' : ''; ?>>Conducteur</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Modifier</button>
+    </form>
                         </div>
                     </div>
                     <div class="col-sm-12 col-xl-6">
@@ -326,11 +264,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     placeholder="name@example.com">
                                 <label for="floatingInput">Email address</label>
                             </div>
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="floatingPassword"
-                                    placeholder="Password">
-                                <label for="floatingPassword">Password</label>
-                            </div>
+                           
                             <div class="form-floating mb-3">
                                 <select class="form-select" id="floatingSelect"
                                     aria-label="Floating label select example">
