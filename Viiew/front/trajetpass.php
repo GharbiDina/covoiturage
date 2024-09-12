@@ -16,6 +16,7 @@ if (isset($_GET['id'])) {
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,6 +49,21 @@ if (isset($_GET['id'])) {
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <style>
+        .btn-reservation {
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-reserve {
+            background-color: green;
+        }
+        .btn-cancel {
+            background-color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -106,23 +122,28 @@ if (isset($_GET['id'])) {
 
     <!-- Trajets Section -->
     <div class="container my-5">
-        <h2 class="text-center mb-4">Mes Trajets</h2>
+        <h2 class="text-center mb-4">Tous les Trajets</h2>
         <div class="row">
-        <?php foreach ($trajets as $trajet): ?>
-    <div class="col-md-4 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Trajet ID: <?php echo htmlspecialchars($trajet->getId()); ?></h5>
-                <p class="card-text"><strong>Départ:</strong> <?php echo htmlspecialchars($trajet->getPointDepart()); ?></p>
-                <p class="card-text"><strong>Arrivée:</strong> <?php echo htmlspecialchars($trajet->getPointArrivee()); ?></p>
-                <p class="card-text"><strong>Date & Heure:</strong> <?php echo htmlspecialchars($trajet->getDateHeureDepart()); ?></p>
-                <p class="card-text"><strong>Nombre de Places Disponibles:</strong> <?php echo htmlspecialchars($trajet->getNombrePlacesDisponibles()); ?></p>
-                <p class="card-text"><strong>Prix:</strong> <?php echo htmlspecialchars($trajet->getPrix()); ?> €</p>
-                
-            </div>
+       <?php foreach ($trajets as $trajet): ?>
+        <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                        <h5 class="card-title">Trajet ID:<?php echo htmlspecialchars($trajet->getId()); ?></h2>
+                        <p class="card-text"><strong>Départ:</strong> <?php echo htmlspecialchars($trajet->getPointDepart()); ?></p>
+                          <p class="card-text"><strong>Arrivée:</strong><?php echo htmlspecialchars($trajet->getPointArrivee()); ?></p>
+                          <p class="card-text"><strong>Date & Heure:</strong><?php echo htmlspecialchars($trajet->getDateHeureDepart()); ?></p>
+                          <p class="card-text"><strong>Nombre de Places Disponibles:</strong> <?php echo htmlspecialchars($trajet->getNombrePlacesDisponibles()); ?></p>
+                          <p class="card-text"><strong>Prix:</strong>  <?php echo htmlspecialchars($trajet->getPrix()); ?></p>
+        
+        <?php if ($trajet->getReserve()): ?>
+            <button class="btn-reservation btn-cancel">Réservé</button>
+        <?php else: ?>
+            <button class="btn-reservation btn-reserve" onclick="window.location.href='reserver_trajet.php?id=<?php echo htmlspecialchars($trajet->getId()); ?>'">Réserver</button>
+        <?php endif; ?>
         </div>
-    </div>
-    <?php endforeach; ?>
+                    </div>
+                </div>
+<?php endforeach; ?>
 
         </div>
     </div>

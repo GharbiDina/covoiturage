@@ -117,7 +117,8 @@ class TrajetU {
                     $row['point_arrivee'],
                     $row['date_heure_depart'],
                     $row['nombre_places_disponibles'],
-                    $row['prix']
+                    $row['prix'],
+                    $this->estReserve($row['id']) // Vérifiez si le trajet est réservé
                 );
             }
             return $trajets;
@@ -126,5 +127,20 @@ class TrajetU {
         }
     }
 
+    // Méthode pour vérifier si un trajet est réservé
+    private function estReserve($trajet_id) {
+        $sql = "SELECT COUNT(*) FROM reservation WHERE trajet_id = :trajet_id";
+        $db = config::getConnexion();
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':trajet_id', $trajet_id);
+            $stmt->execute();
+            $count = $stmt->fetchColumn();
+            return $count > 0; // Retourne true si réservé, false sinon
+        } catch (Exception $e) {
+            die('Erreur: ' . $e->getMessage());
+        }
+    }
+    
 }
 ?>
