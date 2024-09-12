@@ -138,8 +138,9 @@ if (isset($_GET['id'])) {
         <?php if ($trajet->getReserve()): ?>
             <button class="btn-reservation btn-cancel">Réservé</button>
         <?php else: ?>
-            <button class="btn-reservation btn-reserve" onclick="window.location.href='reserver_trajet.php?id=<?php echo htmlspecialchars($trajet->getId()); ?>'">Réserver</button>
-        <?php endif; ?>
+            <a href="reserver_trajet.php?trajet_id=<?php echo htmlspecialchars($trajet->getId()); ?>&passager_id=<?php echo htmlspecialchars($passager_id); ?>" class="btn-reservation btn-reserve">Réserver</a>
+                            <?php endif; ?>
+                  
         </div>
                     </div>
                 </div>
