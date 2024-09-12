@@ -1,16 +1,17 @@
 <?php
-include 'C:/xampp/htdocs/projetcovoiturage/config.php';
-include 'C:/xampp/htdocs/projetcovoiturage/model/Trajet.php';
+include_once 'C:/xampp/htdocs/projetcovoiturage/config.php';
+include_once 'C:/xampp/htdocs/projetcovoiturage/model/Trajet.php';
 
 class TrajetU {
-    public function afficherTrajets() {
-        $sql = "SELECT t.id, t.conducteur_id, t.point_depart, t.point_arrivee, t.date_heure_depart, t.nombre_places_disponibles, t.prix, 
-                       u.nom AS conducteur_nom, u.prenom AS conducteur_prenom
-                FROM trajet t
-                INNER JOIN user u ON t.conducteur_id = u.id";
+    public function afficherTrajets($conducteur_id) {
+        $sql = "SELECT id, conducteur_id, point_depart, point_arrivee, date_heure_depart, nombre_places_disponibles, prix
+                FROM trajet
+                WHERE conducteur_id = :conducteur_id";
         $db = config::getConnexion();
         try {
-            $stmt = $db->query($sql);
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':conducteur_id', $conducteur_id);
+            $stmt->execute();
             $trajets = [];
             while ($row = $stmt->fetch()) {
                 $trajets[] = new Trajet(
@@ -20,9 +21,7 @@ class TrajetU {
                     $row['point_arrivee'],
                     $row['date_heure_depart'],
                     $row['nombre_places_disponibles'],
-                    $row['prix'],
-                    $row['conducteur_nom'],
-                    $row['conducteur_prenom']
+                    $row['prix']
                 );
             }
             return $trajets;
@@ -30,25 +29,16 @@ class TrajetU {
             die('Erreur: ' . $e->getMessage());
         }
     }
-      // Méthode pour supprimer un trajet
-      public function supprimerTrajet($id) {
+
+    public function supprimerTrajet($id) {
+        $sql = "DELETE FROM trajet WHERE id = :id";
         $db = config::getConnexion();
         try {
-            // Préparer la requête SQL pour supprimer le trajet
-            $sql = "DELETE FROM trajet WHERE id = :id";
             $stmt = $db->prepare($sql);
-            
-            // Lier le paramètre ID
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            
-            // Exécuter la requête
-            if ($stmt->execute()) {
-                return true;
-            } else {
-                throw new Exception('Erreur lors de la suppression du trajet.');
-            }
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
         } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+            die('Erreur: ' . $e->getMessage());
         }
     }
 }

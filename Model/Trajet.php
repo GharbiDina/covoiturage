@@ -10,7 +10,7 @@ class Trajet {
     private $conducteur_nom;
     private $conducteur_prenom;
 
-    public function __construct($id, $conducteur_id, $point_depart, $point_arrivee, $date_heure_depart, $nombre_places_disponibles, $prix, $conducteur_nom, $conducteur_prenom) {
+    public function __construct($id, $conducteur_id, $point_depart, $point_arrivee, $date_heure_depart, $nombre_places_disponibles, $prix) {
         $this->id = $id;
         $this->conducteur_id = $conducteur_id;
         $this->point_depart = $point_depart;
@@ -18,10 +18,8 @@ class Trajet {
         $this->date_heure_depart = $date_heure_depart;
         $this->nombre_places_disponibles = $nombre_places_disponibles;
         $this->prix = $prix;
-        $this->conducteur_nom = $conducteur_nom;
-        $this->conducteur_prenom = $conducteur_prenom;
     }
-
+    
     // Getters
     public function getId() { return $this->id; }
     public function getConducteurId() { return $this->conducteur_id; }

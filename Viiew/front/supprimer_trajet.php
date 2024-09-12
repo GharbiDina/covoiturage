@@ -1,25 +1,23 @@
 <?php
 
-include 'C:/xampp/htdocs/projetcovoiturage/controller/TrajetU.php';
+include_once 'C:/xampp/htdocs/projetcovoiturage/config.php';
+include_once 'C:/xampp/htdocs/projetcovoiturage/Controller/TrajetU.php';
 
-// Vérifier si l'ID est passé dans l'URL
-if (isset($_GET['id'])) {
+// Vérifiez si l'ID du trajet et l'ID du conducteur sont passés dans l'URL
+if (isset($_GET['id']) && isset($_GET['conducteur_id'])) {
     $id = $_GET['id'];
+    $conducteur_id = $_GET['conducteur_id'];
 
-    // Créer une instance de TrajetU
+    // Créez une instance du contrôleur
     $trajetController = new TrajetU();
 
     // Supprimer le trajet
-    try {
-        $trajetController->supprimerTrajet($id);
-        // Rediriger vers la page d'affichage après la suppression avec un message de succès
-        header("Location: indexcondu.php?message=Trajet supprimé avec succès");
-    } catch (Exception $e) {
-        // En cas d'erreur, rediriger avec un message d'erreur
-        header("Location: indexcondu.php?message=" . urlencode($e->getMessage()));
-    }
+    $trajetController->supprimerTrajet($id);
+
+    // Redirigez vers la page d'affichage avec l'ID du conducteur dans l'URL
+    header("Location: indexcondu.php?id=" . urlencode($conducteur_id) . "&message=" . urlencode("Trajet supprimé avec succès"));
     exit();
 } else {
-    echo "Aucun ID spécifié.";
+    echo "Aucun ID de trajet ou de conducteur spécifié.";
 }
 ?>
