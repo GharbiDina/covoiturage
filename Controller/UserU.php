@@ -76,6 +76,50 @@ function modifierUtilisateurs($user) {
         echo $e->getMessage();
     }
 }
+// UserU.php
+
+
+
+function login($email, $password) {
+    $db = config::getConnexion();
+    $sql = "SELECT * FROM user WHERE email = :email";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':email', $email);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if ($user) {
+        // Hash the input password with SHA-256
+        $hashed_password = hash('sha256', $password);
+        
+
+        
+        // Check if the hashed password matches
+        if ($user['password'] === $hashed_password) {
+            // Redirect based on user role
+            switch ($user['role']) {
+                case 'admin':
+                    header('Location: /projetcovoiturage/Viiew/back/darkpan-1.0.0/index.php');
+                    break;
+                case 'conducteur':
+                    header('Location: /projetcovoiturage/Viiew/front/indexcondu.php');
+                    break;
+                case 'passager':
+                    header('Location: /projetcovoiturage/Viiew/front/indexpass.php');
+                    break;
+                default:
+                    echo 'Rôle inconnu.';
+                    break;
+            }
+            exit();
+        } else {
+            echo 'Mot de passe incorrect.';
+        }
+    } else {
+        echo 'Email non trouvé.';
+    }
+}
+
 
 }
 ?>
