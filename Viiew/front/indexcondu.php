@@ -54,7 +54,7 @@ if (isset($_GET['id'])) {
 <body>
 
 
->
+
 
 
     <!-- Navbar Start -->
@@ -81,7 +81,8 @@ if (isset($_GET['id'])) {
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="ajouter_trajet.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="btn btn-primary">Ajouter un Trajet</a>
+
         </div>
     </nav>
     <!-- Navbar End -->

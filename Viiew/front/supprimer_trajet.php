@@ -15,7 +15,7 @@ if (isset($_GET['id']) && isset($_GET['conducteur_id'])) {
     $trajetController->supprimerTrajet($id);
 
     // Redirigez vers la page d'affichage avec l'ID du conducteur dans l'URL
-    header("Location: indexcondu.php?id=" . urlencode($conducteur_id) . "&message=" . urlencode("Trajet supprimé avec succès"));
+    header("Location: trajet.php?id=" . urlencode($conducteur_id) . "&message=" . urlencode("Trajet supprimé avec succès"));
     exit();
 } else {
     echo "Aucun ID de trajet ou de conducteur spécifié.";

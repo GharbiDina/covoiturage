@@ -80,7 +80,7 @@ if (isset($_GET['id'])) {
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
-            <a href="ajouter_trajet.php" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">AJOUTER UN TRAJET <i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="ajouter_trajet.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">AJOUTER UN TRAJET <i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
@@ -119,6 +119,7 @@ if (isset($_GET['id'])) {
                 <p class="card-text"><strong>Nombre de Places Disponibles:</strong> <?php echo htmlspecialchars($trajet->getNombrePlacesDisponibles()); ?></p>
                 <p class="card-text"><strong>Prix:</strong> <?php echo htmlspecialchars($trajet->getPrix()); ?> €</p>
                 <a href="modifier_trajet.php?id=<?php echo htmlspecialchars($trajet->getId()); ?>&conducteur_id=<?php echo htmlspecialchars($conducteur_id); ?>" class="btn btn-warning">Modifier</a>
+                
                 <a href="supprimer_trajet.php?id=<?php echo htmlspecialchars($trajet->getId()); ?>&conducteur_id=<?php echo htmlspecialchars($conducteur_id); ?>" class="btn btn-danger">Supprimer</a>
             </div>
         </div>
