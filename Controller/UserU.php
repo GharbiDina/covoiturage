@@ -91,21 +91,22 @@ function login($email, $password) {
     if ($user) {
         // Hash the input password with SHA-256
         $hashed_password = hash('sha256', $password);
-        
 
-        
         // Check if the hashed password matches
         if ($user['password'] === $hashed_password) {
-            // Redirect based on user role
+            // Get the user's ID
+            $user_id = $user['id'];
+
+            // Redirect based on user role, including user ID in the URL
             switch ($user['role']) {
                 case 'admin':
                     header('Location: /projetcovoiturage/Viiew/back/darkpan-1.0.0/index.php');
                     break;
                 case 'conducteur':
-                    header('Location: /projetcovoiturage/Viiew/front/indexcondu.php');
+                    header('Location: /projetcovoiturage/Viiew/front/indexcondu.php?id=' . $user_id);
                     break;
                 case 'passager':
-                    header('Location: /projetcovoiturage/Viiew/front/indexpass.php');
+                    header('Location: /projetcovoiturage/Viiew/front/indexpass.php?id=' . $user_id);
                     break;
                 default:
                     echo 'Rôle inconnu.';
@@ -119,6 +120,7 @@ function login($email, $password) {
         echo 'Email non trouvé.';
     }
 }
+
 
 
 }
