@@ -55,8 +55,8 @@ $trajets = $trajetController->afficherTrajets();
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="indexcondu.php" class="nav-item nav-link active">Aceuil</a>
-                <a href="trajet.php" class="nav-item nav-link">Trajet</a>
+                <a href="indexcondu.php" class="nav-item nav-link ">Aceuil</a>
+                <a href="trajet.php" class="nav-item nav-link active">Trajet</a>
                 <a href="service.html" class="nav-item nav-link">Services</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
@@ -93,8 +93,8 @@ $trajets = $trajetController->afficherTrajets();
         </div>
     </div>
 
-     <!-- Trajets Section -->
-     <div class="container my-5">
+    <!-- Trajets Section -->
+    <div class="container my-5">
         <h2 class="text-center mb-4">Mes Trajets</h2>
         <div class="row">
             <?php foreach ($trajets as $trajet): ?>
@@ -108,7 +108,8 @@ $trajets = $trajetController->afficherTrajets();
                             <p class="card-text"><strong>Nombre de Places Disponibles:</strong> <?php echo htmlspecialchars($trajet->getNombrePlacesDisponibles()); ?></p>
                             <p class="card-text"><strong>Prix:</strong> <?php echo htmlspecialchars($trajet->getPrix()); ?> €</p>
                             <p class="card-text"><strong>Conducteur:</strong> <?php echo htmlspecialchars($trajet->getConducteurNom()) . ' ' . htmlspecialchars($trajet->getConducteurPrenom()); ?></p>
-                            <a href="#" class="btn btn-primary">Réserver</a>
+                            <a href="supprimer_trajet.php?id=<?php echo htmlspecialchars($trajet->getId()); ?>" class="btn btn-danger">Supprimer</a>
+                            <a href="modifier_trajet.php?id=<?php echo htmlspecialchars($trajet->getId()); ?>" class="btn btn-warning">Modifier</a>
                         </div>
                     </div>
                 </div>

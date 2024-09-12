@@ -30,5 +30,26 @@ class TrajetU {
             die('Erreur: ' . $e->getMessage());
         }
     }
+      // Méthode pour supprimer un trajet
+      public function supprimerTrajet($id) {
+        $db = config::getConnexion();
+        try {
+            // Préparer la requête SQL pour supprimer le trajet
+            $sql = "DELETE FROM trajet WHERE id = :id";
+            $stmt = $db->prepare($sql);
+            
+            // Lier le paramètre ID
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            
+            // Exécuter la requête
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                throw new Exception('Erreur lors de la suppression du trajet.');
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
 }
 ?>
