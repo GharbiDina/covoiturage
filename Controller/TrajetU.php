@@ -101,6 +101,30 @@ class TrajetU {
             die('Erreur: ' . $e->getMessage());
         }
     }
-    
+    public function afficherTousTrajets() {
+        $sql = "SELECT id, conducteur_id, point_depart, point_arrivee, date_heure_depart, nombre_places_disponibles, prix
+                FROM trajet";
+        $db = config::getConnexion();
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            $trajets = [];
+            while ($row = $stmt->fetch()) {
+                $trajets[] = new Trajet(
+                    $row['id'],
+                    $row['conducteur_id'],
+                    $row['point_depart'],
+                    $row['point_arrivee'],
+                    $row['date_heure_depart'],
+                    $row['nombre_places_disponibles'],
+                    $row['prix']
+                );
+            }
+            return $trajets;
+        } catch (Exception $e) {
+            die('Erreur: ' . $e->getMessage());
+        }
+    }
+
 }
 ?>

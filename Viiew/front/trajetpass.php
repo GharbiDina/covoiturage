@@ -2,15 +2,15 @@
 include_once 'C:/xampp/htdocs/projetcovoiturage/config.php';
 include_once 'C:/xampp/htdocs/projetcovoiturage/controller/TrajetU.php';
 
-// Vérifiez si l'ID du pass est passé dans l'URL
+// Vérifiez si l'ID du pas est passé dans l'URL
 if (isset($_GET['id'])) {
-    $pass_id = $_GET['id'];
+    $passager_id = $_GET['id'];
 
     // Créez une instance du contrôleur
     $trajetController = new TrajetU();
 
     // Obtenez les trajets pour le pass spécifié
-    $trajets = $trajetController->afficherTrajets($pass_id);
+    $trajets = $trajetController->afficherTousTrajets();
 } else {
     echo "Aucun ID de pass spécifié.";
     exit();
@@ -66,8 +66,8 @@ if (isset($_GET['id'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="indexcondu.php" class="nav-item nav-link active">Aceuil</a>
-                <a href="trajetpass.php?id=<?php echo htmlspecialchars($pass_id); ?>" class="nav-item nav-link">Trajet</a>
+            <a href="indexcondu.php?id=<?php echo htmlspecialchars($passager_id); ?>" class="nav-item nav-link ">Accueil</a>
+            <a href="trajetpass.php?id=<?php echo htmlspecialchars($passager_id); ?>" class="nav-item nav-link active">Trajet</a>
                 <a href="service.html" class="nav-item nav-link">Services</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
@@ -80,63 +80,53 @@ if (isset($_GET['id'])) {
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="ajouter_trajet.php" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">AJOUTER UN TRAJET <i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
 
 
     <!-- Carousel Start -->
-    <div class="container-fluid p-0 mb-5">
+      <!-- Carousel -->
+      <div class="container-fluid p-0 mb-5">
         <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="w-100" src="img/carousel-bg-1.jpg" alt="Image">
-                    <div class="carousel-caption d-flex align-items-center">
-                        <div class="container">
-                            <div class="row align-items-center justify-content-center justify-content-lg-start">
-                                <div class="col-10 col-lg-7 text-center text-lg-start">
-                                    <h6 class="text-white text-uppercase mb-3 animated slideInDown">// Car Servicing //</h6>
-                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Qualified Car Repair Service Center</h1>
-                                    <a href="" class="btn btn-primary py-3 px-5 animated slideInDown">Learn More<i class="fa fa-arrow-right ms-3"></i></a>
-                                </div>
-                                <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
-                                    <img class="img-fluid" src="img/carousel-1.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="w-100" src="img/carousel-bg-2.jpg" alt="Image">
-                    <div class="carousel-caption d-flex align-items-center">
-                        <div class="container">
-                            <div class="row align-items-center justify-content-center justify-content-lg-start">
-                                <div class="col-10 col-lg-7 text-center text-lg-start">
-                                    <h6 class="text-white text-uppercase mb-3 animated slideInDown">// Car Servicing //</h6>
-                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Qualified Car Wash Service Center</h1>
-                                    <a href="" class="btn btn-primary py-3 px-5 animated slideInDown">Learn More<i class="fa fa-arrow-right ms-3"></i></a>
-                                </div>
-                                <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
-                                    <img class="img-fluid" src="img/carousel-2.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Carousel items here... -->
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
-                data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
-                data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
     </div>
+
+    <!-- Trajets Section -->
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Mes Trajets</h2>
+        <div class="row">
+        <?php foreach ($trajets as $trajet): ?>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Trajet ID: <?php echo htmlspecialchars($trajet->getId()); ?></h5>
+                <p class="card-text"><strong>Départ:</strong> <?php echo htmlspecialchars($trajet->getPointDepart()); ?></p>
+                <p class="card-text"><strong>Arrivée:</strong> <?php echo htmlspecialchars($trajet->getPointArrivee()); ?></p>
+                <p class="card-text"><strong>Date & Heure:</strong> <?php echo htmlspecialchars($trajet->getDateHeureDepart()); ?></p>
+                <p class="card-text"><strong>Nombre de Places Disponibles:</strong> <?php echo htmlspecialchars($trajet->getNombrePlacesDisponibles()); ?></p>
+                <p class="card-text"><strong>Prix:</strong> <?php echo htmlspecialchars($trajet->getPrix()); ?> €</p>
+                
+            </div>
+        </div>
+    </div>
+    <?php endforeach; ?>
+
+        </div>
+    </div>
+</body>
     <!-- Carousel End -->
 
 
