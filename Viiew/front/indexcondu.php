@@ -22,7 +22,7 @@ if (isset($_GET['id'])) {
 
 <head>
     <meta charset="utf-8">
-    <title>CarServ - Car Repair HTML Template</title>
+    <title>Ensemble en Route</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -60,7 +60,7 @@ if (isset($_GET['id'])) {
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h2 class="m-0 text-primary"><i class="fa fa-car me-3"></i>CarServ</h2>
+            <h2 class="m-0 text-primary"><i class="fa fa-car me-3"></i>Ensemble en Route</h2>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -69,17 +69,18 @@ if (isset($_GET['id'])) {
             <div class="navbar-nav ms-auto p-4 p-lg-0">
             <a href="indexcondu.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link active">Accueil</a>
             <a href="trajet.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link">Trajet</a>
-                <a href="service.html" class="nav-item nav-link">Services</a>
+                <a href="#" class="nav-item nav-link">Réservations</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Plus</a>
                     <div class="dropdown-menu fade-up m-0">
                         <a href="#" class="dropdown-item">Profil</a>
+                        <a href="#" class="dropdown-item">Réclamation</a>
                         <a href="#" class="dropdown-item">Historique</a>
-                        <a href="#" class="dropdown-item">Deconexion</a>
+                        <a href="/projetcovoiturage/Viiew/deconnexion.php" class="dropdown-item">Deconexion</a>
                       
                     </div>
                 </div>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
+               
             </div>
             <a href="ajouter_trajet.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="btn btn-primary">Ajouter un Trajet</a>
 
@@ -98,9 +99,9 @@ if (isset($_GET['id'])) {
                         <div class="container">
                             <div class="row align-items-center justify-content-center justify-content-lg-start">
                                 <div class="col-10 col-lg-7 text-center text-lg-start">
-                                    <h6 class="text-white text-uppercase mb-3 animated slideInDown">// Car Servicing //</h6>
-                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Qualified Car Repair Service Center</h1>
-                                    <a href="" class="btn btn-primary py-3 px-5 animated slideInDown">Learn More<i class="fa fa-arrow-right ms-3"></i></a>
+                    
+                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown"> Commencez à explorer vos options maintenant !</h1>
+                                    <a href="" class="btn btn-primary py-3 px-5 animated slideInDown">apprendre encore plus<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                                 <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
                                     <img class="img-fluid" src="img/carousel-1.png" alt="">
@@ -115,9 +116,9 @@ if (isset($_GET['id'])) {
                         <div class="container">
                             <div class="row align-items-center justify-content-center justify-content-lg-start">
                                 <div class="col-10 col-lg-7 text-center text-lg-start">
-                                    <h6 class="text-white text-uppercase mb-3 animated slideInDown">// Car Servicing //</h6>
-                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Qualified Car Wash Service Center</h1>
-                                    <a href="" class="btn btn-primary py-3 px-5 animated slideInDown">Learn More<i class="fa fa-arrow-right ms-3"></i></a>
+
+                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Commencez à explorer vos options maintenant !</h1>
+                                    <a href="" class="btn btn-primary py-3 px-5 animated slideInDown">apprendre encore plus<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                                 <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
                                     <img class="img-fluid" src="img/carousel-2.png" alt="">

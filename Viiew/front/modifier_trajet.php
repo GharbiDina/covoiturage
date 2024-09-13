@@ -82,19 +82,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-        <a href="indexcondu.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h2 class="m-0 text-primary"><i class="fa fa-car me-3"></i>CarServ</h2>
+        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="m-0 text-primary"><i class="fa fa-car me-3"></i>Ensemble en Route</h2>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="indexcondu.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link">Accueil</a>
-                <a href="trajet.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link active">Trajet</a>
-                <a href="service.html" class="nav-item nav-link">Services</a>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
+            <a href="indexcondu.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link ">Accueil</a>
+            <a href="trajet.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link">Trajet</a>
+                <a href="#" class="nav-item nav-link">Réservations</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Plus</a>
+                    <div class="dropdown-menu fade-up m-0">
+                        <a href="#" class="dropdown-item">Profil</a>
+                        <a href="#" class="dropdown-item">Réclamation</a>
+                        <a href="#" class="dropdown-item">Historique</a>
+                        <a href="/projetcovoiturage/Viiew/deconnexion.php" class="dropdown-item">Deconexion</a>
+                      
+                    </div>
+                </div>
+               
             </div>
+            <a href="ajouter_trajet.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="btn btn-primary">Ajouter un Trajet</a>
+
         </div>
     </nav>
     <!-- Navbar End -->

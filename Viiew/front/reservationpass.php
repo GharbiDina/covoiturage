@@ -79,30 +79,33 @@ if (isset($_GET['cancel_id'])) {
 </head>
 
 <body>
-    <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+      <!-- Navbar Start -->
+      <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h2 class="m-0 text-primary"><i class="fa fa-car me-3"></i>CarServ</h2>
+            <h2 class="m-0 text-primary"><i class="fa fa-car me-3"></i>Ensemble en route</h2>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="indexpass.php?id=<?php echo htmlspecialchars($passager_id); ?>" class="nav-item nav-link">Accueil</a>
-                <a href="trajetpass.php?id=<?php echo htmlspecialchars($passager_id); ?>" class="nav-item nav-link">Trajet</a>
+            <a href="indexpass.php?id=<?php echo htmlspecialchars($passager_id); ?>" class="nav-item nav-link">Accueil</a>
+                <a href="trajetpass.php?id=<?php echo htmlspecialchars($passager_id); ?>" class="nav-item nav-link ">Trajet</a>
               
-                <a href="#" class="nav-item nav-link">Reclamation</a>
-            </div>
-            <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Plus</a>
+              
+              <a href="#" class="nav-item nav-link">Reclamation</a>
+   
+          </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block nav-lin" >Plus<i class="fa fa-arrow-right ms-3"></i> </a>
                     <div class="dropdown-menu fade-up m-0">
                         <a href="#" class="dropdown-item">Profil</a>
-                        <a href="reservationpass.php?id=<?php echo htmlspecialchars($passager_id); ?>" class="dropdown-item">Historique</a>
-                        <a href="#" class="dropdown-item">Deconexion</a>
+                        <a href="reservationpass.php?id=<?php echo htmlspecialchars($passager_id); ?>" class="dropdown-item ">Historique</a>
+                        <a href="/projetcovoiturage/Viiew/deconnexion.php" class="dropdown-item">Deconexion</a>
                       
                     </div>
                 </div>
+            </div>
         </div>
     </nav>
     <!-- Navbar End -->

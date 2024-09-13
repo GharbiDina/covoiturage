@@ -71,11 +71,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="indexcondu.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link active">Accueil</a>
+            <a href="indexcondu.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link ">Accueil</a>
             <a href="trajet.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link">Trajet</a>
-                <a href="service.html" class="nav-item nav-link">Services</a>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
+                <a href="#" class="nav-item nav-link">Réservations</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Plus</a>
+                    <div class="dropdown-menu fade-up m-0">
+                        <a href="#" class="dropdown-item">Profil</a>
+                        <a href="#" class="dropdown-item">Réclamation</a>
+                        <a href="#" class="dropdown-item">Historique</a>
+                        <a href="/projetcovoiturage/Viiew/deconnexion.php" class="dropdown-item">Deconexion</a>
+                      
+                    </div>
+                </div>
+               
             </div>
+            <a href="ajouter_trajet.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="btn btn-primary">Ajouter un Trajet</a>
+
         </div>
     </nav>
     <!-- Navbar End -->
