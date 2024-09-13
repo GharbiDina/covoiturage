@@ -7,6 +7,7 @@ class Trajet {
     private $date_heure_depart;
     private $nombre_places_disponibles;
     private $prix;
+    private $reserve;
 
 
     public function __construct($id, $conducteur_id, $point_depart, $point_arrivee, $date_heure_depart, $nombre_places_disponibles, $prix) {
@@ -20,8 +21,9 @@ class Trajet {
    
     }
     public function getReserve() {
-
+        return $this->reserve; // Assurez-vous que cette variable est correctement définie et mise à jour
     }
+    
     
     // Getters
     public function getId() { return $this->id; }

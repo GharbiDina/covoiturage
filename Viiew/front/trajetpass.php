@@ -2,17 +2,18 @@
 include_once 'C:/xampp/htdocs/projetcovoiturage/config.php';
 include_once 'C:/xampp/htdocs/projetcovoiturage/controller/TrajetU.php';
 
-// Vérifiez si l'ID du pas est passé dans l'URL
+
+// Vérifiez si l'ID du passager est passé dans l'URL
 if (isset($_GET['id'])) {
     $passager_id = $_GET['id'];
 
     // Créez une instance du contrôleur
     $trajetController = new TrajetU();
 
-    // Obtenez les trajets pour le pass spécifié
+    // Obtenez les trajets pour le passager spécifié
     $trajets = $trajetController->afficherTousTrajets();
 } else {
-    echo "Aucun ID de pass spécifié.";
+    echo "Aucun ID de passager spécifié.";
     exit();
 }
 ?>
@@ -33,7 +34,7 @@ if (isset($_GET['id'])) {
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -49,29 +50,9 @@ if (isset($_GET['id'])) {
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-    <style>
-        .btn-reservation {
-            padding: 10px 20px;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn-reserve {
-            background-color: green;
-        }
-        .btn-cancel {
-            background-color: red;
-        }
-    </style>
 </head>
 
 <body>
- 
-
-
-   
-
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
@@ -82,29 +63,24 @@ if (isset($_GET['id'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="indexpass.php?id=<?php echo htmlspecialchars($passager_id); ?>" class="nav-item nav-link ">Accueil</a>
-            <a href="trajetpass.php?id=<?php echo htmlspecialchars($passager_id); ?>" class="nav-item nav-link active">Trajet</a>
+                <a href="indexpass.php?id=<?php echo htmlspecialchars($passager_id); ?>" class="nav-item nav-link">Accueil</a>
+                <a href="trajetpass.php?id=<?php echo htmlspecialchars($passager_id); ?>" class="nav-item nav-link active">Trajet</a>
                 <a href="#" class="nav-item nav-link">Reclamation</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Plus</a>
                     <div class="dropdown-menu fade-up m-0">
                         <a href="#" class="dropdown-item">Profil</a>
                         <a href="reservationpass.php?id=<?php echo htmlspecialchars($passager_id); ?>" class="dropdown-item">Historique</a>
-                        <a href="#" class="dropdown-item">Deconexion</a>
-                      
+                        <a href="#" class="dropdown-item">Deconnexion</a>
                     </div>
                 </div>
-               
             </div>
-        
         </div>
     </nav>
     <!-- Navbar End -->
 
-
     <!-- Carousel Start -->
-      <!-- Carousel -->
-      <div class="container-fluid p-0 mb-5">
+    <div class="container-fluid p-0 mb-5">
         <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <!-- Carousel items here... -->
@@ -119,60 +95,42 @@ if (isset($_GET['id'])) {
             </button>
         </div>
     </div>
+    <!-- Carousel End -->
 
     <!-- Trajets Section -->
     <div class="container my-5">
         <h2 class="text-center mb-4">Tous les Trajets</h2>
         <div class="row">
-       <?php foreach ($trajets as $trajet): ?>
-        <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                        <h5 class="card-title">Trajet ID:<?php echo htmlspecialchars($trajet->getId()); ?></h2>
+        <?php foreach ($trajets as $trajet): ?>
+            <?php $estReserveParPassager = $trajetController->estTrajetReserveParPassager($trajet->getId(), $passager_id); ?>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Trajet ID: <?php echo htmlspecialchars($trajet->getId()); ?></h5>
                         <p class="card-text"><strong>Départ:</strong> <?php echo htmlspecialchars($trajet->getPointDepart()); ?></p>
-                          <p class="card-text"><strong>Arrivée:</strong><?php echo htmlspecialchars($trajet->getPointArrivee()); ?></p>
-                          <p class="card-text"><strong>Date & Heure:</strong><?php echo htmlspecialchars($trajet->getDateHeureDepart()); ?></p>
-                          <p class="card-text"><strong>Nombre de Places Disponibles:</strong> <?php echo htmlspecialchars($trajet->getNombrePlacesDisponibles()); ?></p>
-                          <p class="card-text"><strong>Prix:</strong>  <?php echo htmlspecialchars($trajet->getPrix()); ?></p>
-        
-        <?php if ($trajet->getReserve()): ?>
-            <button class="btn-reservation btn-cancel">Réservé</button>
-        <?php else: ?>
-            <a href="reserver_trajet.php?trajet_id=<?php echo htmlspecialchars($trajet->getId()); ?>&passager_id=<?php echo htmlspecialchars($passager_id); ?>" class="btn-reservation btn-reserve">Réserver</a>
-                            <?php endif; ?>
-                  
-        </div>
+                        <p class="card-text"><strong>Arrivée:</strong> <?php echo htmlspecialchars($trajet->getPointArrivee()); ?></p>
+                        <p class="card-text"><strong>Date & Heure:</strong> <?php echo htmlspecialchars($trajet->getDateHeureDepart()); ?></p>
+                        <p class="card-text"><strong>Nombre de Places Disponibles:</strong> <?php echo htmlspecialchars($trajet->getNombrePlacesDisponibles()); ?></p>
+                        <p class="card-text"><strong>Prix:</strong> <?php echo htmlspecialchars($trajet->getPrix()); ?></p>
+
+                        <?php if ($estReserveParPassager): ?>
+                            <button style="background-color: red;" disabled>Trajet déjà réservé</button>
+                            <?php else: ?>
+    <form action="reserver_trajet.php" method="GET">
+        <input type="hidden" name="trajet_id" value="<?php echo $trajet->getId(); ?>">
+        <input type="hidden" name="passager_id" value="<?php echo htmlspecialchars($passager_id); ?>">
+        <button style="background-color: green;">Réserver</button>
+    </form>
+<?php endif; ?>
                     </div>
                 </div>
-<?php endforeach; ?>
-
+            </div>
+        <?php endforeach; ?>
         </div>
     </div>
-</body>
-    <!-- Carousel End -->
-
-
-
-
-    
-
-
-   
-
-
-
-    
-
-
-
-
-
-
-
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

@@ -101,6 +101,20 @@ class TrajetU {
             die('Erreur: ' . $e->getMessage());
         }
     }
+    public function estTrajetReserveParPassager($trajet_id, $passager_id) {
+        $sql = "SELECT COUNT(*) FROM reservation WHERE trajet_id = :trajet_id AND passager_id = :passager_id";
+        $db = config::getConnexion();
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':trajet_id', $trajet_id);
+            $stmt->bindParam(':passager_id', $passager_id);
+            $stmt->execute();
+            return $stmt->fetchColumn() > 0; // Retourne true si le trajet est réservé par ce passager, false sinon
+        } catch (Exception $e) {
+            die('Erreur: ' . $e->getMessage());
+        }
+    }
+    
     public function afficherTousTrajets() {
         $sql = "SELECT id, conducteur_id, point_depart, point_arrivee, date_heure_depart, nombre_places_disponibles, prix
                 FROM trajet";

@@ -23,6 +23,13 @@ if (isset($_GET['id'])) {
     echo "Aucun ID de passager spécifié.";
     exit();
 }
+// Traitement de l'annulation
+if (isset($_GET['cancel_id'])) {
+    $reservation_id = $_GET['cancel_id'];
+    $reservationController->supprimerReservation($reservation_id);
+    header("Location: reservationpass.php?id=" . urlencode($passager_id)); // Redirection pour éviter la soumission multiple
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -115,7 +122,7 @@ if (isset($_GET['id'])) {
                                 <p class="card-text"><strong>Date & Heure:</strong> <?php echo htmlspecialchars($trajet->getDateHeureDepart()); ?></p>
                                 <p class="card-text"><strong>Nombre de Places Disponibles:</strong> <?php echo htmlspecialchars($trajet->getNombrePlacesDisponibles()); ?></p>
                                 <p class="card-text"><strong>Prix:</strong> <?php echo htmlspecialchars($trajet->getPrix()); ?></p>
-                                <button class="btn-reservation btn-cancel">Annulé</button>
+                                <a href="reservationpass.php?id=<?php echo urlencode($passager_id); ?>&cancel_id=<?php echo urlencode($reservation->getId()); ?>" class="btn-reservation btn-cancel">Annuler</a>
                             </div>
                         </div>
                     </div>
