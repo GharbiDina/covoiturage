@@ -69,7 +69,7 @@ if (isset($_GET['id'])) {
             <div class="navbar-nav ms-auto p-4 p-lg-0">
             <a href="indexcondu.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link active">Accueil</a>
             <a href="trajet.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link">Trajet</a>
-                <a href="#" class="nav-item nav-link">Réservations</a>
+            <a href="trajetcondu.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link">Réservations</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Plus</a>
                     <div class="dropdown-menu fade-up m-0">

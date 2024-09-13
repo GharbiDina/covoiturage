@@ -155,6 +155,26 @@ class TrajetU {
             die('Erreur: ' . $e->getMessage());
         }
     }
+    
+    
+    public function afficherTrajetsReserves($conducteur_id) {
+        $sql = "SELECT t.id, t.conducteur_id, t.point_depart, t.point_arrivee, t.date_heure_depart, 
+                       t.nombre_places_disponibles, t.prix
+                FROM trajet t
+                INNER JOIN reservation r ON t.id = r.trajet_id
+                WHERE t.conducteur_id = :conducteur_id";
+        $db = config::getConnexion();
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':conducteur_id', $conducteur_id);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            die('Erreur: ' . $e->getMessage());
+        }
+    }
+    
+    
 
 }
 ?>

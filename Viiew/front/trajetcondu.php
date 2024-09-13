@@ -9,13 +9,14 @@ if (isset($_GET['id'])) {
     // Créez une instance du contrôleur
     $trajetController = new TrajetU();
 
-    // Obtenez les trajets pour le conducteur spécifié
-    $trajets = $trajetController->afficherTrajets($conducteur_id);
+    // Obtenez les trajets réservés pour le conducteur spécifié
+    $trajets = $trajetController->afficherTrajetsReserves($conducteur_id);
 } else {
     echo "Aucun ID de conducteur spécifié.";
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,8 +86,8 @@ if (isset($_GET['id'])) {
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
             <a href="indexcondu.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link ">Accueil</a>
-            <a href="trajet.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link active">Trajet</a>
-                <a href="trajetcondu.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link">Réservations</a>
+            <a href="trajet.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link ">Trajet</a>
+                <a href="trajetcondu.php?id=<?php echo htmlspecialchars($conducteur_id); ?>" class="nav-item nav-link active">Réservations</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Plus</a>
                     <div class="dropdown-menu fade-up m-0">
@@ -128,20 +129,18 @@ if (isset($_GET['id'])) {
     <div class="container my-5">
         <h2 class="text-center mb-4">Mes Trajets</h2>
         <div class="row">
-            <?php foreach ($trajets as $trajet): ?>
+        <?php foreach ($trajets as $trajet): ?>
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Trajet ID: <?php echo htmlspecialchars($trajet->getId()); ?></h5>
-                            <p class="card-text"><strong>Départ:</strong> <?php echo htmlspecialchars($trajet->getPointDepart()); ?></p>
-                            <p class="card-text"><strong>Arrivée:</strong> <?php echo htmlspecialchars($trajet->getPointArrivee()); ?></p>
-                            <p class="card-text"><strong>Date & Heure:</strong> <?php echo htmlspecialchars($trajet->getDateHeureDepart()); ?></p>
-                            <p class="card-text"><strong>Nombre de Places Disponibles:</strong> <?php echo htmlspecialchars($trajet->getNombrePlacesDisponibles()); ?></p>
-                            <p class="card-text"><strong>Prix:</strong> <?php echo htmlspecialchars($trajet->getPrix()); ?> €</p>
-                            <a href="modifier_trajet.php?id=<?php echo htmlspecialchars($trajet->getId()); ?>&conducteur_id=<?php echo htmlspecialchars($conducteur_id); ?>" class="btn btn-warning">Modifier</a>
-                            <a href="supprimer_trajet.php?id=<?php echo htmlspecialchars($trajet->getId()); ?>&conducteur_id=<?php echo htmlspecialchars($conducteur_id); ?>" class="btn btn-danger">Supprimer</a>
-                            
-                           
+                            <h5 class="card-title">Trajet ID: <?php echo htmlspecialchars($trajet['id']); ?></h5>
+                            <p class="card-text"><strong>Départ:</strong> <?php echo htmlspecialchars($trajet['point_depart']); ?></p>
+                            <p class="card-text"><strong>Arrivée:</strong> <?php echo htmlspecialchars($trajet['point_arrivee']); ?></p>
+                            <p class="card-text"><strong>Date & Heure:</strong> <?php echo htmlspecialchars($trajet['date_heure_depart']); ?></p>
+                            <p class="card-text"><strong>Nombre de Places Disponibles:</strong> <?php echo htmlspecialchars($trajet['nombre_places_disponibles']); ?></p>
+                            <p class="card-text"><strong>Prix:</strong> <?php echo htmlspecialchars($trajet['prix']); ?> €</p>
+                            <a href="modifier_trajet.php?id=<?php echo htmlspecialchars($trajet['id']); ?>&conducteur_id=<?php echo htmlspecialchars($conducteur_id); ?>" class="btn btn-warning">Modifier</a>
+                            <a href="supprimer_trajet.php?id=<?php echo htmlspecialchars($trajet['id']); ?>&conducteur_id=<?php echo htmlspecialchars($conducteur_id); ?>" class="btn btn-danger">Supprimer</a>
                         </div>
                     </div>
                 </div>
