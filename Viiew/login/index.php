@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="utf-8">
-    <title>Connexion - Nom du Site</title>
+    <title>Ensemble en route</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="row gx-5">
                 <div class="col-lg-6 py-5">
                     <div class="py-5">
-                        <h1 class="text-white mb-4">Nom du Site</h1>
+                        <h1 class="text-white mb-4">Ensemble en route</h1>
                         <p class="text-white mb-0">Bienvenue sur notre plateforme de covoiturage. Connectez-vous pour accéder à vos trajets, gérer vos réservations et plus encore. Si vous n'avez pas encore de compte, vous pouvez vous inscrire dès maintenant. Pour toute assistance, n'hésitez pas à nous contacter.</p>
                     </div>
                 </div>
