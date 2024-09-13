@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="col-12 text-center mt-3">
             <a href="forgot_password.php" class="text-white">Mot de Passe Oublié ?</a><br>
-            <a href="register.php" class="text-white">Créer un Compte</a>
+            <a href="inscription.php" class="text-white">Créer un Compte</a>
         </div>
     </div>
 </form>
