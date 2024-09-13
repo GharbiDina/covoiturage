@@ -30,7 +30,7 @@ class TrajetU {
         }
     }
 
-    public function supprimerTrajet($id) {
+  /*  public function supprimerTrajet($id) {
         $sql = "DELETE FROM trajet WHERE id = :id";
         $db = config::getConnexion();
         try {
@@ -40,7 +40,26 @@ class TrajetU {
         } catch (Exception $e) {
             die('Erreur: ' . $e->getMessage());
         }
+    }*/
+    public function supprimerTrajet($id) {
+        $db = config::getConnexion();
+        try {
+            // Supprimer les réservations associées
+            $sql = "DELETE FROM reservation WHERE trajet_id = :id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            
+            // Supprimer le trajet
+            $sql = "DELETE FROM trajet WHERE id = :id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+        } catch (Exception $e) {
+            die('Erreur: ' . $e->getMessage());
+        }
     }
+    
     public function ajouterTrajet($conducteur_id, $point_depart, $point_arrivee, $date_heure_depart, $nombre_places_disponibles, $prix) {
         $sql = "INSERT INTO trajet (conducteur_id, point_depart, point_arrivee, date_heure_depart, nombre_places_disponibles, prix)
                 VALUES (:conducteur_id, :point_depart, :point_arrivee, :date_heure_depart, :nombre_places_disponibles, :prix)";
@@ -132,7 +151,7 @@ class TrajetU {
                     $row['date_heure_depart'],
                     $row['nombre_places_disponibles'],
                     $row['prix'],
-                    $this->estReserve($row['id']) // Vérifiez si le trajet est réservé
+                    $this->estReserve($row['id']) // Ajouter l'information sur la réservation// Vérifiez si le trajet est réservé
                 );
             }
             return $trajets;
