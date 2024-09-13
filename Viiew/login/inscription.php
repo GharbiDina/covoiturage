@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                                 <div class="col-12 text-center mt-3">
                                     <a href="forgot_password.php" class="text-white">Mot de Passe Oublié ?</a><br>
-                                    <a href="login.php" class="text-white">Déjà un compte ? Connectez-vous</a>
+                                    <a href="index.php" class="text-white">Déjà un compte ? Connectez-vous</a>
                                 </div>
                             </div>
                         </form>

@@ -21,20 +21,35 @@ class UserU {
     
    
     
-    
-    function supprimerUtilisateurs($id){
-        $sql="DELETE FROM user WHERE id=:id";
+    function supprimerUtilisateurs($id) {
         $db = config::getConnexion();
-        $req=$db->prepare($sql);
-        $req->bindValue(':id', $id);
-        try{
-            $req->execute();
-        }
-        catch(Exception $e){
-            die('Erreur:'. $e->getMessage());
+        
+        try {
+            // Commencer une transaction
+            $db->beginTransaction();
+            
+            // Supprimer les réservations associées à l'utilisateur
+            $sqlReservations = "DELETE FROM reservation WHERE passager_id = :id";
+            $stmtReservations = $db->prepare($sqlReservations);
+            $stmtReservations->bindValue(':id', $id);
+            $stmtReservations->execute();
+            
+            // Supprimer l'utilisateur
+            $sqlUser = "DELETE FROM user WHERE id = :id";
+            $stmtUser = $db->prepare($sqlUser);
+            $stmtUser->bindValue(':id', $id);
+            $stmtUser->execute();
+            
+            // Valider la transaction
+            $db->commit();
+            
+        } catch (Exception $e) {
+            // Annuler la transaction en cas d'erreur
+            $db->rollBack();
+            die('Erreur: ' . $e->getMessage());
         }
     }
-   
+    
     
    function recupererUtilisateurs($id) {
     $sql = "SELECT * FROM user WHERE id = :id";
